@@ -15,6 +15,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedResultsRouteImport } from './routes/_authenticated/results'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedVoteIndexRouteImport } from './routes/_authenticated/vote.index'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedVoteProjectIdRouteImport } from './routes/_authenticated/vote.$projectId'
 
 const AuthRoute = AuthRouteImport.update({
@@ -46,6 +47,11 @@ const AuthenticatedVoteIndexRoute = AuthenticatedVoteIndexRouteImport.update({
   path: '/vote/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
 const AuthenticatedVoteProjectIdRoute =
   AuthenticatedVoteProjectIdRouteImport.update({
     id: '/vote/$projectId',
@@ -56,17 +62,18 @@ const AuthenticatedVoteProjectIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
-  '/admin': typeof AuthenticatedAdminRouteRoute
+  '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/results': typeof AuthenticatedResultsRoute
   '/vote/$projectId': typeof AuthenticatedVoteProjectIdRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/vote/': typeof AuthenticatedVoteIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
-  '/admin': typeof AuthenticatedAdminRouteRoute
   '/results': typeof AuthenticatedResultsRoute
   '/vote/$projectId': typeof AuthenticatedVoteProjectIdRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
   '/vote': typeof AuthenticatedVoteIndexRoute
 }
 export interface FileRoutesById {
@@ -74,9 +81,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRouteRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/_authenticated/results': typeof AuthenticatedResultsRoute
   '/_authenticated/vote/$projectId': typeof AuthenticatedVoteProjectIdRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/vote/': typeof AuthenticatedVoteIndexRoute
 }
 export interface FileRouteTypes {
@@ -87,9 +95,10 @@ export interface FileRouteTypes {
     | '/admin'
     | '/results'
     | '/vote/$projectId'
+    | '/admin/'
     | '/vote/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/admin' | '/results' | '/vote/$projectId' | '/vote'
+  to: '/' | '/auth' | '/results' | '/vote/$projectId' | '/admin' | '/vote'
   id:
     | '__root__'
     | '/'
@@ -98,6 +107,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/_authenticated/results'
     | '/_authenticated/vote/$projectId'
+    | '/_authenticated/admin/'
     | '/_authenticated/vote/'
   fileRoutesById: FileRoutesById
 }
@@ -151,6 +161,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedVoteIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/vote/$projectId': {
       id: '/_authenticated/vote/$projectId'
       path: '/vote/$projectId'
@@ -161,15 +178,29 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedAdminRouteRouteChildren {
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
+  {
+    AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+  }
+
+const AuthenticatedAdminRouteRouteWithChildren =
+  AuthenticatedAdminRouteRoute._addFileChildren(
+    AuthenticatedAdminRouteRouteChildren,
+  )
+
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAdminRouteRoute: typeof AuthenticatedAdminRouteRoute
+  AuthenticatedAdminRouteRoute: typeof AuthenticatedAdminRouteRouteWithChildren
   AuthenticatedResultsRoute: typeof AuthenticatedResultsRoute
   AuthenticatedVoteProjectIdRoute: typeof AuthenticatedVoteProjectIdRoute
   AuthenticatedVoteIndexRoute: typeof AuthenticatedVoteIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAdminRouteRoute: AuthenticatedAdminRouteRoute,
+  AuthenticatedAdminRouteRoute: AuthenticatedAdminRouteRouteWithChildren,
   AuthenticatedResultsRoute: AuthenticatedResultsRoute,
   AuthenticatedVoteProjectIdRoute: AuthenticatedVoteProjectIdRoute,
   AuthenticatedVoteIndexRoute: AuthenticatedVoteIndexRoute,

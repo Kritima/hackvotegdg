@@ -13,7 +13,7 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminLayout,
 });
 
-const NAV = [
+const NAV: { to: string; label: string; icon: any; exact?: boolean }[] = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/admin/settings", label: "Event", icon: Settings },
   { to: "/admin/challenges", label: "Challenges", icon: Award },
@@ -21,7 +21,7 @@ const NAV = [
   { to: "/admin/teams", label: "Teams & Projects", icon: Users },
   { to: "/admin/monitor", label: "Monitor", icon: Activity },
   { to: "/admin/results", label: "Results", icon: Trophy },
-] as const;
+];
 
 function AdminLayout() {
   return (

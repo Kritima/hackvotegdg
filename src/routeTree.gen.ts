@@ -13,6 +13,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedResultsRouteImport } from './routes/_authenticated/results'
+import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedVoteIndexRouteImport } from './routes/_authenticated/vote.index'
 import { Route as AuthenticatedVoteProjectIdRouteImport } from './routes/_authenticated/vote.$projectId'
 
@@ -35,6 +36,11 @@ const AuthenticatedResultsRoute = AuthenticatedResultsRouteImport.update({
   path: '/results',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedVoteIndexRoute = AuthenticatedVoteIndexRouteImport.update({
   id: '/vote/',
   path: '/vote/',
@@ -50,6 +56,7 @@ const AuthenticatedVoteProjectIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/admin': typeof AuthenticatedAdminRouteRoute
   '/results': typeof AuthenticatedResultsRoute
   '/vote/$projectId': typeof AuthenticatedVoteProjectIdRoute
   '/vote/': typeof AuthenticatedVoteIndexRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/admin': typeof AuthenticatedAdminRouteRoute
   '/results': typeof AuthenticatedResultsRoute
   '/vote/$projectId': typeof AuthenticatedVoteProjectIdRoute
   '/vote': typeof AuthenticatedVoteIndexRoute
@@ -66,20 +74,28 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteRoute
   '/_authenticated/results': typeof AuthenticatedResultsRoute
   '/_authenticated/vote/$projectId': typeof AuthenticatedVoteProjectIdRoute
   '/_authenticated/vote/': typeof AuthenticatedVoteIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/results' | '/vote/$projectId' | '/vote/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/admin'
+    | '/results'
+    | '/vote/$projectId'
+    | '/vote/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/results' | '/vote/$projectId' | '/vote'
+  to: '/' | '/auth' | '/admin' | '/results' | '/vote/$projectId' | '/vote'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/_authenticated/admin'
     | '/_authenticated/results'
     | '/_authenticated/vote/$projectId'
     | '/_authenticated/vote/'
@@ -121,6 +137,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedResultsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/vote/': {
       id: '/_authenticated/vote/'
       path: '/vote'
@@ -139,12 +162,14 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRouteRoute: typeof AuthenticatedAdminRouteRoute
   AuthenticatedResultsRoute: typeof AuthenticatedResultsRoute
   AuthenticatedVoteProjectIdRoute: typeof AuthenticatedVoteProjectIdRoute
   AuthenticatedVoteIndexRoute: typeof AuthenticatedVoteIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRouteRoute: AuthenticatedAdminRouteRoute,
   AuthenticatedResultsRoute: AuthenticatedResultsRoute,
   AuthenticatedVoteProjectIdRoute: AuthenticatedVoteProjectIdRoute,
   AuthenticatedVoteIndexRoute: AuthenticatedVoteIndexRoute,

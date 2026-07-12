@@ -9,10 +9,10 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search, ArrowRight, Ban, CheckCircle2, Clock, Circle, MapPin } from "lucide-react";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 
-export const Route = createFileRoute("/_authenticated/vote")({
+export const Route = createFileRoute("/_authenticated/vote/")({
   head: () => ({ meta: [{ title: "Vote — HackVote" }] }),
   component: VoteDashboard,
 });

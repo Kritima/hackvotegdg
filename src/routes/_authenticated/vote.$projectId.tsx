@@ -118,7 +118,7 @@ function VotePage() {
       qc.invalidateQueries();
       if (status === "submitted") {
         setShowSuccess(true);
-        confetti({ particleCount: 120, spread: 90, origin: { y: 0.6 }, colors: ["#e879f9", "#22d3ee", "#facc15"] });
+        confetti({ particleCount: 120, spread: 90, origin: { y: 0.6 }, colors: ["#4285F4", "#EA4335", "#FBBC05", "#34A853"] });
         setTimeout(() => navigate({ to: "/vote" }), 1800);
       } else {
         toast.success("Draft saved");

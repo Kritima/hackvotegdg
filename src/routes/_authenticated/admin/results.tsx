@@ -89,7 +89,7 @@ function AdminResults() {
               <XAxis dataKey="name" tick={{ fontSize: 10 }} />
               <YAxis domain={[0, 100]} />
               <Tooltip />
-              <Bar dataKey="score" fill="oklch(0.72 0.24 320)" radius={[6, 6, 0, 0]} />
+              <Bar dataKey="score" fill="#4285F4" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </Card>
@@ -99,7 +99,7 @@ function AdminResults() {
             <RadarChart data={radarData}>
               <PolarGrid />
               <PolarAngleAxis dataKey="criterion" tick={{ fontSize: 10 }} />
-              <Radar dataKey="value" stroke="oklch(0.72 0.24 320)" fill="oklch(0.72 0.24 320)" fillOpacity={0.4} />
+              <Radar dataKey="value" stroke="#4285F4" fill="#4285F4" fillOpacity={0.4} />
             </RadarChart>
           </ResponsiveContainer>
         </Card>

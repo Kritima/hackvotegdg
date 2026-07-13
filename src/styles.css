@@ -54,7 +54,12 @@
 :root {
   --radius: 0.875rem;
 
-  /* Deep indigo → electric magenta stage light */
+  /* Google four-color stage light: blue, red, yellow, green */
+  --google-blue: #4285F4;
+  --google-red: #EA4335;
+  --google-yellow: #FBBC05;
+  --google-green: #34A853;
+
   --background: oklch(0.145 0.03 275);
   --foreground: oklch(0.98 0.005 275);
 
@@ -64,53 +69,53 @@
   --popover: oklch(0.19 0.035 275);
   --popover-foreground: oklch(0.98 0.005 275);
 
-  --primary: oklch(0.72 0.24 320);          /* electric magenta */
-  --primary-foreground: oklch(0.145 0.03 275);
-  --primary-glow: oklch(0.78 0.22 330);
+  --primary: var(--google-blue);
+  --primary-foreground: oklch(0.98 0.005 275);
+  --primary-glow: #6aa1f7;
 
-  --secondary: oklch(0.72 0.19 200);        /* cyan */
+  --secondary: var(--google-green);
   --secondary-foreground: oklch(0.145 0.03 275);
 
-  --accent: oklch(0.85 0.18 90);            /* highlighter yellow */
+  --accent: var(--google-yellow);
   --accent-foreground: oklch(0.145 0.03 275);
 
   --muted: oklch(0.24 0.03 275);
   --muted-foreground: oklch(0.72 0.02 275);
 
-  --destructive: oklch(0.65 0.24 25);
+  --destructive: var(--google-red);
   --destructive-foreground: oklch(0.98 0.005 275);
 
-  --success: oklch(0.75 0.19 155);
+  --success: var(--google-green);
   --success-foreground: oklch(0.145 0.03 275);
 
-  --warning: oklch(0.82 0.17 75);
+  --warning: var(--google-yellow);
   --warning-foreground: oklch(0.145 0.03 275);
 
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.72 0.24 320 / 60%);
+  --ring: color-mix(in oklab, var(--google-blue) 60%, transparent);
 
-  --chart-1: oklch(0.72 0.24 320);
-  --chart-2: oklch(0.72 0.19 200);
-  --chart-3: oklch(0.85 0.18 90);
-  --chart-4: oklch(0.75 0.19 155);
+  --chart-1: var(--google-blue);
+  --chart-2: var(--google-red);
+  --chart-3: var(--google-yellow);
+  --chart-4: var(--google-green);
   --chart-5: oklch(0.7 0.2 30);
 
   --sidebar: oklch(0.17 0.03 275);
   --sidebar-foreground: oklch(0.98 0.005 275);
-  --sidebar-primary: oklch(0.72 0.24 320);
+  --sidebar-primary: var(--google-blue);
   --sidebar-primary-foreground: oklch(0.145 0.03 275);
   --sidebar-accent: oklch(0.24 0.03 275);
   --sidebar-accent-foreground: oklch(0.98 0.005 275);
   --sidebar-border: oklch(1 0 0 / 8%);
-  --sidebar-ring: oklch(0.72 0.24 320);
+  --sidebar-ring: var(--google-blue);
 
-  --gradient-hero: linear-gradient(135deg, oklch(0.72 0.24 320) 0%, oklch(0.72 0.19 200) 100%);
-  --gradient-cool: linear-gradient(135deg, oklch(0.4 0.15 275) 0%, oklch(0.35 0.15 220) 100%);
-  --gradient-stage: radial-gradient(ellipse at top, oklch(0.72 0.24 320 / 25%) 0%, transparent 60%),
-                    radial-gradient(ellipse at bottom, oklch(0.72 0.19 200 / 20%) 0%, transparent 60%);
-  --shadow-glow: 0 0 40px oklch(0.72 0.24 320 / 35%);
-  --shadow-elevated: 0 20px 60px -20px oklch(0.72 0.24 320 / 40%);
+  --gradient-hero: linear-gradient(135deg, var(--google-blue) 0%, var(--google-green) 100%);
+  --gradient-cool: linear-gradient(135deg, var(--google-blue) 0%, var(--google-red) 100%);
+  --gradient-stage: radial-gradient(ellipse at top, color-mix(in oklab, var(--google-blue) 25%, transparent) 0%, transparent 60%),
+                    radial-gradient(ellipse at bottom, color-mix(in oklab, var(--google-green) 20%, transparent) 0%, transparent 60%);
+  --shadow-glow: 0 0 40px color-mix(in oklab, var(--google-blue) 35%, transparent);
+  --shadow-elevated: 0 20px 60px -20px color-mix(in oklab, var(--google-blue) 40%, transparent);
 }
 
 .light {
@@ -169,8 +174,8 @@
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px oklch(0.72 0.24 320 / 30%); }
-  50% { box-shadow: 0 0 40px oklch(0.72 0.24 320 / 60%); }
+  0%, 100% { box-shadow: 0 0 20px color-mix(in oklab, var(--google-blue) 30%, transparent); }
+  50% { box-shadow: 0 0 40px color-mix(in oklab, var(--google-blue) 60%, transparent); }
 }
 
 @keyframes shimmer {

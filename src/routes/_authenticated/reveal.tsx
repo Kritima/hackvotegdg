@@ -70,7 +70,7 @@ function RevealPage() {
       return () => clearInterval(t);
     }
     if (stage === "first" || stage === "podium") {
-      confetti({ particleCount: 200, spread: 120, origin: { y: 0.6 }, colors: ["#e879f9", "#22d3ee", "#facc15", "#4ade80"] });
+      confetti({ particleCount: 200, spread: 120, origin: { y: 0.6 }, colors: ["#4285F4", "#EA4335", "#FBBC05", "#34A853"] });
     }
   }, [stage]);
 

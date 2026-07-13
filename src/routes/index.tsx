@@ -97,6 +97,8 @@ function StadiumTransition({ onDone }: { onDone: () => void }) {
     return () => clearTimeout(t);
   }, [onDone]);
 
+  const ballDuration = TRANSITION_MS / 1000 - 0.18;
+
   return (
     <motion.div
       role="button"
@@ -109,27 +111,40 @@ function StadiumTransition({ onDone }: { onDone: () => void }) {
       className="fixed inset-0 z-50 flex items-center justify-center cursor-pointer overflow-hidden"
       style={{ background: "radial-gradient(circle at 50% 45%, #131a26 0%, #05070b 70%)" }}
     >
-      {[...Array(8)].map((_, i) => (
-        <motion.span
-          key={i}
-          className="absolute text-3xl select-none"
-          style={{ left: `${8 + i * 11}%`, bottom: "-10%" }}
-          initial={{ y: 0, opacity: 0, rotate: 0 }}
-          animate={{ y: "-120vh", opacity: [0, 1, 1, 0], rotate: 360 }}
-          transition={{ duration: 1.1 + (i % 3) * 0.15, delay: i * 0.05, ease: "easeIn" }}
-        >
-          ⚽
-        </motion.span>
-      ))}
       <motion.p
-        className="relative text-white font-black tracking-tight text-center px-6"
-        style={{ fontSize: "clamp(28px, 6vw, 56px)" }}
+        className="absolute top-[18%] text-white font-black tracking-tight text-center px-6"
+        style={{ fontSize: "clamp(24px, 5vw, 44px)" }}
         initial={{ opacity: 0, scale: 0.85 }}
-        animate={{ opacity: [0, 1, 1, 0], scale: [0.85, 1.05, 1, 1.02] }}
-        transition={{ duration: TRANSITION_MS / 1000, times: [0, 0.25, 0.75, 1] }}
+        animate={{ opacity: [0, 1, 1, 0], scale: [0.85, 1.05, 1, 1] }}
+        transition={{ duration: ballDuration * 0.55, times: [0, 0.3, 0.75, 1] }}
       >
         ENTERING THE STADIUM
       </motion.p>
+
+      {/* single ball, kicked from lower-left, growing as it rushes the camera */}
+      <motion.div
+        className="absolute rounded-full"
+        style={{
+          width: 60,
+          height: 60,
+          background:
+            "radial-gradient(circle at 35% 30%, #fff 0 7px, transparent 8px)," +
+            "conic-gradient(#111 0 20deg, #fff 20deg 70deg, #111 70deg 90deg, #fff 90deg 140deg, #111 140deg 160deg, #fff 160deg 210deg, #111 210deg 230deg, #fff 230deg 280deg, #111 280deg 300deg, #fff 300deg 360deg)",
+          boxShadow: "0 0 40px rgba(0,0,0,0.5)",
+        }}
+        initial={{ x: "-32vw", y: "26vh", scale: 0.5, rotate: 0, opacity: 1 }}
+        animate={{ x: "0vw", y: "0vh", scale: 22, rotate: 520, opacity: 1 }}
+        transition={{ duration: ballDuration, ease: [0.36, 0, 0.66, -0.1] }}
+      />
+
+      {/* impact flash as the ball fills the screen, revealing sign-in underneath */}
+      <motion.div
+        className="absolute inset-0 bg-white"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 0, 1] }}
+        transition={{ duration: TRANSITION_MS / 1000, times: [0, 0.86, 1] }}
+      />
+
       <span className="absolute bottom-6 text-xs text-white/50">Tap to skip</span>
     </motion.div>
   );

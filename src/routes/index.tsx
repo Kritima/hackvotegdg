@@ -12,20 +12,34 @@ function playWhistle() {
   try {
     const Ctx = window.AudioContext || (window as any).webkitAudioContext;
     const ctx = new Ctx();
+    const DUR = 1.0;
+
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.type = "sine";
     osc.frequency.setValueAtTime(2200, ctx.currentTime);
     osc.frequency.linearRampToValueAtTime(2600, ctx.currentTime + 0.12);
-    osc.frequency.linearRampToValueAtTime(2100, ctx.currentTime + 0.35);
+    osc.frequency.linearRampToValueAtTime(2500, ctx.currentTime + DUR - 0.1);
+
+    // classic "pea" trill: a fast LFO wobbling the pitch
+    const lfo = ctx.createOscillator();
+    const lfoGain = ctx.createGain();
+    lfo.frequency.setValueAtTime(28, ctx.currentTime);
+    lfoGain.gain.setValueAtTime(60, ctx.currentTime);
+    lfo.connect(lfoGain);
+    lfoGain.connect(osc.frequency);
+
     gain.gain.setValueAtTime(0, ctx.currentTime);
     gain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.03);
-    gain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.3);
-    gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.4);
+    gain.gain.setValueAtTime(0.15, ctx.currentTime + DUR - 0.12);
+    gain.gain.linearRampToValueAtTime(0, ctx.currentTime + DUR);
+
     osc.connect(gain);
     gain.connect(ctx.destination);
     osc.start();
-    osc.stop(ctx.currentTime + 0.42);
+    lfo.start();
+    osc.stop(ctx.currentTime + DUR + 0.02);
+    lfo.stop(ctx.currentTime + DUR + 0.02);
     osc.onended = () => ctx.close();
   } catch {
     // audio not available — silently skip

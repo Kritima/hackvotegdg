@@ -93,9 +93,6 @@ function AuthPage() {
             World Cup<br /> hackathons,<br /><span className="gradient-text">gamified.</span>
           </h1>
         </motion.div>
-        <div className="relative z-10 text-xs text-muted-foreground">
-          ⚽ Built for fans • Anonymous & fair
-        </div>
       </div>
 
       <div className="flex items-center justify-center p-6 lg:p-12">

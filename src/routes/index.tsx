@@ -121,21 +121,43 @@ function StadiumTransition({ onDone }: { onDone: () => void }) {
         ENTERING THE STADIUM
       </motion.p>
 
+      {/* player silhouette, planted at the bottom-left, swings a leg into the ball */}
+      <motion.div
+        className="absolute"
+        style={{ left: "18%", bottom: "14%", width: 46, height: 92 }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: [0, 1, 1, 0], y: 0 }}
+        transition={{ duration: 0.75, times: [0, 0.15, 0.75, 1], delay: 0.05 }}
+      >
+        {/* head */}
+        <div className="absolute rounded-full bg-white/85" style={{ width: 16, height: 16, left: 15, top: 0 }} />
+        {/* torso */}
+        <div className="absolute rounded-full bg-white/85" style={{ width: 14, height: 34, left: 16, top: 15 }} />
+        {/* standing leg */}
+        <div className="absolute rounded-full bg-white/85" style={{ width: 9, height: 38, left: 13, top: 46 }} />
+        {/* kicking leg — swings forward to meet the ball */}
+        <motion.div
+          className="absolute rounded-full bg-white/85 origin-top"
+          style={{ width: 9, height: 38, left: 24, top: 46 }}
+          initial={{ rotate: 25 }}
+          animate={{ rotate: -85 }}
+          transition={{ duration: 0.22, delay: 0.16, ease: "easeIn" }}
+        />
+      </motion.div>
+
       {/* single ball, kicked from lower-left, growing as it rushes the camera */}
       <motion.div
-        className="absolute rounded-full"
-        style={{
-          width: 60,
-          height: 60,
-          background:
-            "radial-gradient(circle at 35% 30%, #fff 0 7px, transparent 8px)," +
-            "conic-gradient(#111 0 20deg, #fff 20deg 70deg, #111 70deg 90deg, #fff 90deg 140deg, #111 140deg 160deg, #fff 160deg 210deg, #111 210deg 230deg, #fff 230deg 280deg, #111 280deg 300deg, #fff 300deg 360deg)",
-          boxShadow: "0 0 40px rgba(0,0,0,0.5)",
+        className="absolute select-none"
+        style={{ fontSize: 44, lineHeight: 1 }}
+        initial={{ x: "-30vw", y: "24vh", scale: 0.6, rotate: 0, opacity: 0 }}
+        animate={{ x: "0vw", y: "0vh", scale: 20, rotate: 520, opacity: 1 }}
+        transition={{
+          opacity: { duration: 0.05, delay: 0.16 },
+          default: { duration: ballDuration, delay: 0.16, ease: [0.36, 0, 0.66, -0.1] },
         }}
-        initial={{ x: "-32vw", y: "26vh", scale: 0.5, rotate: 0, opacity: 1 }}
-        animate={{ x: "0vw", y: "0vh", scale: 22, rotate: 520, opacity: 1 }}
-        transition={{ duration: ballDuration, ease: [0.36, 0, 0.66, -0.1] }}
-      />
+      >
+        ⚽
+      </motion.div>
 
       {/* impact flash as the ball fills the screen, revealing sign-in underneath */}
       <motion.div

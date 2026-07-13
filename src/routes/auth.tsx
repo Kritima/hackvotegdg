@@ -77,27 +77,23 @@ function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen grid lg:grid-cols-2">
-      <div className="hidden lg:flex flex-col items-center justify-center text-center gap-8 p-12 relative overflow-hidden">
-        <div className="absolute inset-0" style={{ background: "var(--gradient-stage)" }} />
-        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="relative z-10">
-          <div className="flex items-center gap-2 text-2xl font-black">
+    <div className="min-h-screen flex flex-col relative overflow-hidden">
+      <div className="absolute inset-0" style={{ background: "var(--gradient-stage)" }} />
+
+      <div className="relative flex-1 flex flex-col items-center justify-center gap-8 p-6 py-12">
+        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-center">
+          <div className="flex items-center justify-center gap-2 text-2xl font-black mb-4">
             <div className="grid h-10 w-10 place-items-center rounded-xl bg-primary text-primary-foreground">
               <Trophy className="h-5 w-5" />
             </div>
             <span className="gradient-text">Code the Cup</span>
           </div>
-        </motion.div>
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="relative z-10 space-y-4">
-          <h1 className="text-6xl font-black leading-[0.95]">
-            World Cup<br /> hackathons,<br /><span className="gradient-text">gamified.</span>
+          <h1 className="text-4xl sm:text-5xl font-black leading-[1.05]">
+            World Cup<br /> hackathon,<br /><span className="gradient-text">gamified.</span>
           </h1>
         </motion.div>
-        <div className="relative z-10 text-xs text-muted-foreground">⚽ Built for fans</div>
-      </div>
 
-      <div className="flex items-center justify-center p-6 lg:p-12">
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="w-full max-w-md">
           <Card className="p-8 glass">
             <div className="mb-6">
               <h2 className="text-2xl font-bold">Sign in to Code the Cup</h2>
@@ -187,6 +183,8 @@ function AuthPage() {
           <Link to="/" className="mt-4 block text-center text-xs text-muted-foreground hover:text-foreground">← Back to Code the Cup</Link>
         </motion.div>
       </div>
+
+      <div className="relative text-center text-xs text-muted-foreground pb-6">⚽ Built for fans</div>
     </div>
   );
 }

@@ -137,7 +137,7 @@ function Landing() {
             Code the Cup,<br />
             <span className="gradient-text">judged by the fans.</span>
           </h1>
-          <span className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary border border-primary/20">
+          <span className="mt-8 inline-flex items-center gap-3 rounded-full bg-primary/10 px-7 py-3 text-lg sm:text-xl font-bold text-primary border border-primary/20">
             ⚽ World Cup hack night
           </span>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">

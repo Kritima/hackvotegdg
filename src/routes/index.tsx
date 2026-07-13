@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useSession, isAdmin } from "@/lib/use-session";
-import { Trophy, Sparkles, Users, Zap, Shield } from "lucide-react";
+import { Trophy, Users, Zap, Shield } from "lucide-react";
 
 const GOOGLE_COLORS = ["#4285F4", "#EA4335", "#FBBC05", "#34A853"];
 
@@ -47,13 +47,13 @@ function Landing() {
               <span key={c} className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: c }} />
             ))}
           </div>
-          <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary border border-primary/20">
-            <Sparkles className="h-3 w-3" /> ⚽ World Cup hack night
-          </span>
           <h1 className="mt-6 text-6xl sm:text-7xl md:text-8xl font-black leading-[0.9] tracking-tight">
             Code the Cup,<br />
             <span className="gradient-text">judged by the fans.</span>
           </h1>
+          <span className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary border border-primary/20">
+            ⚽ World Cup hack night
+          </span>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             <Link to="/auth"><Button size="lg" className="h-12 px-8 text-base font-semibold shadow-[0_10px_40px_-10px_#4285F499]">Enter the stadium</Button></Link>
           </div>
